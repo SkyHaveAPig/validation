@@ -41,44 +41,48 @@
 		},
 
 		checkRegExp: function(dom, rules, execList){
-			for(x in execList){
-				dom.find('*').each(function(i, ele){
-					if($(ele).attr('name') == x){
-						$(ele).on('blur focus hover', function(){
-							var result = {},
-								status = true;
+			dom.find('*').each(function(i, ele){
+				if($(ele).attr('name')){
+					$(ele).on('blur hover', function(){
+						for(x in execList){
+							if($(ele).attr('name') == x){
+								var result = {},
+									status = true;
 
-							for(y in execList[x]){
-								for(rule in rules){
-									if(execList[x][y] && y == rule && status){
-										if(typeof rules[rule].expression != 'function'){
-											var regStr = rules[rule].expression,
-												regExp = '';
-											if(typeof regStr == 'string'){
-											 	regExp = new RegExp(regStr);
+								for(y in execList[x]){
+									for(rule in rules){
+										if(execList[x][y] && y == rule && status){
+											if(typeof rules[rule].expression != 'function'){
+												var regStr = rules[rule].expression,
+													regExp = '';
+
+												if(typeof regStr == 'string'){
+												 	regExp = new RegExp(regStr);
+												}else{
+													regExp = new RegExp(regStr[0], regStr[1]);
+												}
+												
+												if(!regExp.test($(this).val())){
+													result.message = execList[x].message ? execList[x].message : rules[rule].message;
+													status = false;
+												}
 											}else{
-												regExp = new RegExp(regStr[0], regStr[1]);
+												if(!rules[rule].expression(ele, execList[x][y])){
+													result.message = execList[x].message ? execList[x].message : rules[rule].message;
+													status = false;
+												}
 											}
-											
-											if(!regExp.test($(this).val())){
-												result.message = execList[x].message ? execList[x].message : rules[rule].message;
-												status = false;
-											}
-										}else{
-											if(!rules[rule].expression(ele, execList[x][y])){
-												result.message = execList[x].message ? execList[x].message : rules[rule].message;
-												status = false;
-											}
+											result.ele = this;
 										}
-										result.ele = this;
 									}
 								}
+								execList[x].callback(result);
 							}
-							execList[x].callback(result);
-						})
-					}
-				})
-			}
+
+						}
+					})
+				}
+			})
 		}
 	}
 
