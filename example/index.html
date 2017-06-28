@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="lib/boostrap/bootstrap.min.css">
+	<script type="text/javascript" src="./lib/jquery/jquery.js"></script>
+	<script type="text/javascript" src="./lib/boostrap/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../src/validation.js"></script>
+	<script type="text/javascript" src="../src/addition-validation.js"></script>
+</head>
+<body>
+	<form id="example">
+		<input type="text" name="myname" data-toggle="tooltip" data-placement="bottom">
+		<input type="text" name="pass" data-toggle="tooltip" data-placement="bottom">
+	</form>
+	<script type="text/javascript">
+		$('#example').validation({},{
+			myname: {
+				required: true,
+				date: true,
+				callback: function(e){
+					if(e.message){
+						if(!$(e.ele).attr('title')){
+						 	$(e.ele).attr('title', e.message);
+						}else{
+						 	$(e.ele).attr('data-original-title', e.message);
+						}
+						$('[data-toggle="tooltip"]').tooltip('toggle');
+					}
+				}
+			}
+		});
+	</script>
+</body>
+</html>
