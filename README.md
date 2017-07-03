@@ -16,10 +16,10 @@ $("#example").validation(rules, execList);
 
       ```
       {
-        required: {
-          message: '此项为必填！'
-        },
-        ......
+          required: {
+              message: '此项为必填！'
+          },
+          ......
       }
       ```
 
@@ -30,11 +30,11 @@ $("#example").validation(rules, execList);
       ```
       字符串：
       {
-        isAddRule: true,
-        number: {
-          expression: '^\\d+$',		//'\\d'转义为'\d'
-          message: '请填写数字'
-        }
+          isAddRule: true,
+          number: {
+              expression: '^\\d+$',		//'\\d'转义为'\d'
+              message: '请填写数字'
+          }
       }
 
       方法: 
