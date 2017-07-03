@@ -39,15 +39,15 @@ $("#example").validation(rules, execList);
 
       方法: 
       {
-        isAddRule: true,
-        required: {
-          expression: function(ele){
-        	  if($(ele).val()){
-              return true;			//校验通过时，返回'true'
-            }
-          },
-          message: '此选项为必填'
-        }
+          isAddRule: true,
+          required: {
+              expression: function(ele){
+                  if($(ele).val()){
+                      return true;			//校验通过时，返回'true'
+                  }
+              },
+              message: '此选项为必填'
+          }
       }
       ```
 
@@ -63,14 +63,14 @@ $("#example").validation(rules, execList);
 
       ```
       {
-        text: { 
-          required: true,
-          callback: function(e){				//e为当前元素与校验结果
-            if(e.message){
-              console.log(e.ele, e.message);	  //当校验值存在错误时，会在控制台输出校验元素与校验提示
-            }
+          text: { 
+              required: true,
+              callback: function(e){				//e为当前元素与校验结果
+                  if(e.message){
+                      console.log(e.ele, e.message);	  //当校验值存在错误时，会在控制台输出校验元素与校验提示
+                  }
+              }
           }
-        }
       }
       ```
 
@@ -87,29 +87,29 @@ $("#example").validation(rules, execList);
    ```
    HTML：
    <form id="example">
-     <input type="text" name="myname" data-toggle="tooltip" data-placement="bottom">
+       <input type="text" name="myname" data-toggle="tooltip" data-placement="bottom">
    </form>
 
    JS：
    $('#example').validation({
-     required: {
-       message: '此项不允许为空'
-     }
+       required: {
+           message: '此项不允许为空'
+       }
    },
    {
-     myname: { 
-       required: true,
-       callback: function(e){									   //e为当前元素与校验结果
-         if(e.message){
-           console.log(e.ele, e.message);		 				//输入校验的元素与‘此项不允许为空’
-           if(!$(e.ele).attr('title')){
-             $(e.ele).attr('title', e.message);
-           }else{
-             $(e.ele).attr('data-original-title', e.message);
+       myname: { 
+           required: true,
+           callback: function(e){									   //e为当前元素与校验结果
+               if(e.message){
+                   console.log(e.ele, e.message);		 				//输入校验的元素与‘此项不允许为空’
+                   if(!$(e.ele).attr('title')){
+                       $(e.ele).attr('title', e.message);
+                   }else{
+                       $(e.ele).attr('data-original-title', e.message);
+                   }
+                   $('[data-toggle="tooltip"]').tooltip('toggle');		  //使用 'tooltip'
+               }
            }
-           $('[data-toggle="tooltip"]').tooltip('toggle');		  //使用 'tooltip'
-         }
        }
-     }
    })
    ```
